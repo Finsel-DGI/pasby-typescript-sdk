@@ -1,4 +1,4 @@
-import { actions, claims } from "../../shared";
+import {claims } from "../../shared";
 
 /**
  * 
@@ -8,10 +8,10 @@ import { actions, claims } from "../../shared";
 export interface IdentificationSameDeviceRequest {
     /**
      * 'login' | 'signup' | 'link'
-     * @type {actions}
+     * @type {string}
      * @memberof IdentificationSameDeviceRequest
      */
-    'action': actions;
+    'action': 'login' | 'signup' | 'link';
     /**
      * 
      * @type {Array<string>}

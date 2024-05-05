@@ -13,7 +13,7 @@ export interface ConfigurationParameters {
     apikeyAuth: string;
     appSecretKey: string;
     version?: versions;
-    basePath: baseURLs;
+    basePath?: baseURLs;
     baseOptions?: any;
     userAgent?: string;
     formDataCtor?: new () => any;
@@ -94,8 +94,8 @@ export class Configuration {
                 this.apiKey["appSecretKey"] = param.appSecretKey
         }
         
-        this.basePath = param.basePath;
-        this.versioning = param.version ?? 'v1';
+        this.basePath = param.basePath ?? 'https://l.pasby.africa';
+        this.versioning = param.version ?? 'v2';
         this.baseOptions = param.baseOptions ?? {};
         this.userAgent = param.userAgent === undefined ? "Finsel-DGI/pasby-sdk/0.0.1/typescript" : param.userAgent;
         this.formDataCtor = param.formDataCtor;

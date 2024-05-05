@@ -5,7 +5,7 @@ import { Configuration } from '../../sdk/configuration';
 import {
     DUMMY_BASE_URL, assertParamExists, setApiKeyToObject,
     setSearchParams, serializeDataIfNeeded, toPathString,
-    createRequestFunction, isBrowser, setJwtToObject
+    createRequestFunction, isBrowser
 } from '../../sdk/common';
 // @ts-ignore
 import { BASE_PATH, RequestArgs, BaseAPI } from '../../sdk/base';
@@ -18,6 +18,8 @@ import { SigningSameDeviceRequest } from '../../modules/models';
 // @ts-ignore
 import { SigningSameDeviceResponse } from '../../modules/models';
 import { requestBeforeHook } from '../../sdk/components/requestBeforeHook';
+import { WildcardSigningRequest } from '../../modules/models/signing/signing-wildcard-request';
+import { SigningWildcardResponse } from '../../modules/models/signing/signing-wildcard-response';
 /**
  * SigningApi - axios parameter creator
  * @export
@@ -48,9 +50,8 @@ export const SigningApiAxiosParamCreator = function (configuration: Configuratio
 
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
-
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
 
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -100,9 +101,6 @@ export const SigningApiAxiosParamCreator = function (configuration: Configuratio
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
             // authentication app secret key required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -119,6 +117,56 @@ export const SigningApiAxiosParamCreator = function (configuration: Configuratio
                 httpMethod: 'POST'
             });
             localVarRequestOptions.data = serializeDataIfNeeded(signingSameDeviceRequest, localVarRequestOptions, configuration)
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        
+        /**
+         * This endpoint allows you to make an HTTP POST request to https://{base_url}/api/{version}/signing/wildcard in order to perform a specific action. The request should include a payload with a number of seeds request. The seeds will then be used to present a QR code to your audience. 
+         * @summary signing:wildcard
+         * @param {WildcardApiSigningRequest} wildcardRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wildcard: async (wildcardRequest: WildcardApiSigningRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'wildcardRequest' is not null or undefined
+            assertParamExists('wildcard', 'wildcardRequest', wildcardRequest)
+            const localVarPath = `/api/${configuration.versioning}/signing/wildcard`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions: AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = configuration && !isBrowser() ? { "User-Agent": configuration.userAgent } : {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication apikeyAuth required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            requestBeforeHook({
+                requestBody: wildcardRequest,
+                queryParameters: localVarQueryParameter,
+                requestConfig: localVarRequestOptions,
+                path: localVarPath,
+                configuration,
+                pathTemplate: `/api/${configuration.versioning}/signing/wildcard`,
+                httpMethod: 'POST'
+            });
+            localVarRequestOptions.data = serializeDataIfNeeded(wildcardRequest, localVarRequestOptions, configuration)
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             return {
@@ -170,6 +218,25 @@ export const SigningApiFp = function(configuration: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.sameDevice(signingSameDeviceRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        
+        /**
+         * This endpoint allows you to make an HTTP POST request to https://{base_url}/api/{version}/signing/wildcard in order to perform a specific action. The request should include a payload with a number of seeds request. The seeds will then be used to present a QR code to your audience. 
+         * @summary signing:wildcard
+         * @param {WildcardApiSigningRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async wildcard(requestParameters: WildcardApiSigningRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigningWildcardResponse>> {
+            const wildcardRequest: WildcardApiSigningRequest = {
+                action: requestParameters.action,
+                webhook: requestParameters.webhook,
+                seeds: requestParameters.seeds,
+                payload: requestParameters.payload
+            };
+            const localVarAxiosArgs = await localVarAxiosParamCreator.wildcard(wildcardRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        
     }
 };
 
@@ -200,6 +267,17 @@ export const SigningApiFactory = function (configuration: Configuration, basePat
         sameDevice(requestParameters: SigningApiSameDeviceRequest, options?: AxiosRequestConfig): AxiosPromise<SigningSameDeviceResponse> {
             return localVarFp.sameDevice(requestParameters, options).then((request) => request(axios, basePath));
         },
+        
+        /**
+         * This endpoint allows you to make an HTTP POST request to https://{base_url}/api/{version}/signing/wildcard in order to perform a specific action. The request should include a payload with a number of seeds request. The seeds will then be used to present a QR code to your audience. 
+         * @summary signing:wildcard
+         * @param {WildcardApiSigningRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        wildcard(requestParameters: WildcardApiSigningRequest, options?: AxiosRequestConfig): AxiosPromise<SigningWildcardResponse> {
+            return localVarFp.wildcard(requestParameters, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -220,6 +298,15 @@ export type SigningApiDifferentDeviceRequest = {
 export type SigningApiSameDeviceRequest = {
     
 } & SigningSameDeviceRequest
+
+/**
+ * Request parameters for wildcard operation in SigningApi.
+ * @export
+ * @interface WildcardApiSigningRequest
+ */
+export type WildcardApiSigningRequest = {
+    
+} & WildcardSigningRequest
 
 /**
  * SigningApiGenerated - object-oriented interface
@@ -250,5 +337,17 @@ export class SigningApiGenerated extends BaseAPI {
      */
     public sameDevice(requestParameters: SigningApiSameDeviceRequest, options?: AxiosRequestConfig) {
         return SigningApiFp(this.configuration).sameDevice(requestParameters, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * This endpoint allows you to make an HTTP POST request to https://{base_url}/api/{version}/signing/wildcard in order to perform a specific action. The request should include a payload with a number of seeds request. The seeds will then be used to present a QR code to your audience. 
+     * @summary signing:wildcard
+     * @param {WildcardApiSigningRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SigningApiGenerated
+     */
+    public wildcard(requestParameters: WildcardApiSigningRequest, options?: AxiosRequestConfig) {
+        return SigningApiFp(this.configuration).wildcard(requestParameters, options).then((request) => request(this.axios, this.basePath));
     }
 }

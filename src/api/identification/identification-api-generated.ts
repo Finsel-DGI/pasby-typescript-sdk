@@ -2,15 +2,16 @@ import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'ax
 import { Configuration } from '../../sdk/configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, isBrowser } from '../../sdk/common';
+import {
+    DUMMY_BASE_URL, assertParamExists, setApiKeyToObject,
+    setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction, isBrowser
+} from '../../sdk/common';
 // @ts-ignore
 import { BASE_PATH, RequestArgs, BaseAPI } from '../../sdk/base';
 // @ts-ignore
+import { IdentificationDifferentDeviceRequest, IdentificationDifferentDeviceResponse } from '../../modules/models';
+// @ts-ignore
 import { IdentificationDifferentDeviceRequest } from '../../modules/models';
-// @ts-ignore
-import { IdentificationDifferentDeviceRequestV2 } from '../../modules/models';
-// @ts-ignore
-import { IdentificationDifferentDevicev2Response } from '../../modules/models';
 // @ts-ignore
 import { IdentificationSameDeviceRequest } from '../../modules/models';
 // @ts-ignore
@@ -20,7 +21,7 @@ import { IdentificationWildcardRequest } from '../../modules/models';
 // @ts-ignore
 import { IdentificationWildcardResponse } from '../../modules/models';
 import { requestBeforeHook } from '../../sdk/components/requestBeforeHook';
-import { setJwtToObject } from '../../sdk/common';
+
 /**
  * IdentificationApi - axios parameter creator
  * @export
@@ -30,15 +31,15 @@ export const IdentificationApiAxiosParamCreator = function (configuration: Confi
 
         /**
          * API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action. API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.
-         * @summary identification:another v2
+         * @summary identification:another
          * @param {IdentificationDifferentDeviceRequest} identificationDifferentDeviceRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        differentDevice: async (identificationDifferentDeviceRequest: IdentificationDifferentDeviceRequestV2, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'identificationDifferentDevicev2Request' is not null or undefined
+        differentDevice: async (identificationDifferentDeviceRequest: IdentificationDifferentDeviceRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'identificationDifferentDeviceRequest' is not null or undefined
             assertParamExists('differentDevice', 'identificationDifferentDeviceRequest', identificationDifferentDeviceRequest)
-            const localVarPath = `/api/${configuration.versioning == 'v1' ? 'v2' : configuration.versioning}/identification/different-device`;
+            const localVarPath = `/api/${configuration.versioning}/identification/different-device`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -67,7 +68,7 @@ export const IdentificationApiAxiosParamCreator = function (configuration: Confi
                 requestConfig: localVarRequestOptions,
                 path: localVarPath,
                 configuration,
-                pathTemplate: `/api/${configuration.versioning == 'v1' ? 'v2' : configuration.versioning}/identification/different-device`,
+                pathTemplate: `/api/${configuration.versioning}/identification/different-device`,
                 httpMethod: 'POST'
             });
             localVarRequestOptions.data = serializeDataIfNeeded(identificationDifferentDeviceRequest, localVarRequestOptions, configuration)
@@ -129,7 +130,7 @@ export const IdentificationApiAxiosParamCreator = function (configuration: Confi
             };
         },
         /**
-         * Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unknown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       # Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data | # Response  - Status: 201 - Content-Type: application/json       # Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
+         * Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unknown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw    Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data | # Response  - Status: 201 - Content-Type: application/json       # Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
          * @summary identification:wildcard
          * @param {IdentificationWildcardRequest} identificationWildcardRequest 
          * @param {*} [options] Override http request option.
@@ -150,13 +151,12 @@ export const IdentificationApiAxiosParamCreator = function (configuration: Confi
             const localVarHeaderParameter = configuration && !isBrowser() ? { "User-Agent": configuration.userAgent } : {} as any;
             const localVarQueryParameter = {} as any;
 
+
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
 
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
-
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
 
@@ -190,24 +190,24 @@ export const IdentificationApiFp = function(configuration: Configuration) {
     const localVarAxiosParamCreator = IdentificationApiAxiosParamCreator(configuration)
     return {
         /**
-         * ### API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
-         * @summary identification:another v2
-         * @param {IdentificationApiDifferentDevicev2Request} requestParameters Request parameters.
+         * API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
+         * @summary identification:another
+         * @param {IdentificationDifferentDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async differentDevice(requestParameters: IdentificationApiDifferentDevicev2Request, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IdentificationDifferentDevicev2Response>> {
-            const identificationDifferentDevicev2Request: IdentificationDifferentDeviceRequestV2 = {
+        async differentDevice(requestParameters: IdentificationDifferentDeviceRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IdentificationDifferentDeviceResponse>> {
+            const identificationDifferentDeviceRequest: IdentificationDifferentDeviceRequest = {
                 user: requestParameters.user,
                 action: requestParameters.action,
                 claims: requestParameters.claims,
                 payload: requestParameters.payload
             };
-            const localVarAxiosArgs = await localVarAxiosParamCreator.differentDevice(identificationDifferentDevicev2Request, options);
+            const localVarAxiosArgs = await localVarAxiosParamCreator.differentDevice(identificationDifferentDeviceRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * # Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
+         * Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
          * @summary identification:same
          * @param {IdentificationApiSameDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -223,7 +223,7 @@ export const IdentificationApiFp = function(configuration: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * # Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
+         * Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
          * @summary identification:wildcard
          * @param {IdentificationApiWildcardRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -250,17 +250,17 @@ export const IdentificationApiFactory = function (configuration: Configuration, 
     const localVarFp = IdentificationApiFp(configuration)
     return {
         /**
-         * ### API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
-         * @summary identification:another v2
-         * @param {IdentificationApiDifferentDevicev2Request} requestParameters Request parameters.
+         * API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
+         * @summary identification:another
+         * @param {IdentificationApiDifferentDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        differentDevice(requestParameters: IdentificationApiDifferentDevicev2Request, options?: AxiosRequestConfig): AxiosPromise<IdentificationDifferentDevicev2Response> {
+        differentDevice(requestParameters: IdentificationApiDifferentDeviceRequest, options?: AxiosRequestConfig): AxiosPromise<IdentificationDifferentDeviceResponse> {
             return localVarFp.differentDevice(requestParameters, options).then((request) => request(axios, basePath));
         },
         /**
-         * # Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
+         * Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
          * @summary identification:same
          * @param {IdentificationApiSameDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -270,7 +270,7 @@ export const IdentificationApiFactory = function (configuration: Configuration, 
             return localVarFp.sameDevice(requestParameters, options).then((request) => request(axios, basePath));
         },
         /**
-         * # Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
+         * Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
          * @summary identification:wildcard
          * @param {IdentificationApiWildcardRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -290,15 +290,6 @@ export const IdentificationApiFactory = function (configuration: Configuration, 
 export type IdentificationApiDifferentDeviceRequest = {
     
 } & IdentificationDifferentDeviceRequest
-
-/**
- * Request parameters for differentDevicev2 operation in IdentificationApi.
- * @export
- * @interface IdentificationApiDifferentDevicev2Request
- */
-export type IdentificationApiDifferentDevicev2Request = {
-    
-} & IdentificationDifferentDeviceRequestV2
 
 /**
  * Request parameters for sameDevice operation in IdentificationApi.
@@ -326,19 +317,19 @@ export type IdentificationApiWildcardRequest = {
  */
 export class IdentificationApiGenerated extends BaseAPI {
     /**
-     * ### API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
+     * API Request Description  This API endpoint allows users to make an HTTP POST request to https://{base_url}/api/{version}/identification/different-device in order to perform a specific action related to identification on a different device. The request should include a JSON payload with the following parameters:  - `user` (string): The user\'s nin related to the action.      - `action` (string): The specific action to be performed. - `claims` (array of strings): Additional claims related to the action. - `payload` (string): Additional payload data for the action.       ### API Response  Upon successful execution, the API returns a response with a status code of 201 and a content type of application/json. The response body contains the following fields:  - `status` (string): The status of the response. - `reason` (string): The reason for the response status. - `data` (object): An object containing detailed data related to the request.     - `token` (string): The token associated with the request.     - `request` (object): Details of the request including id, consumer, app, mode, action, payload, iat, exp, user, ip, useragent, name, acquireClaims, and signature. - `version` (string): The version of the response.       ### Additional Notes  The user can add more detailed documentation for this API endpoint based on specific use cases and requirements.
      * @summary identification:another v2
-     * @param {IdentificationApiDifferentDevicev2Request} requestParameters Request parameters.
+     * @param {IdentificationApiDifferentDeviceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof IdentificationApiGenerated
      */
-    public differentDevice(requestParameters: IdentificationApiDifferentDevicev2Request, options?: AxiosRequestConfig) {
+    public differentDevice(requestParameters: IdentificationApiDifferentDeviceRequest, options?: AxiosRequestConfig) {
         return IdentificationApiFp(this.configuration).differentDevice(requestParameters, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * # Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
+     * Same Device Identification  This endpoint allows you to perform same device identification by making an HTTP POST request to `https://{base_url}/api/{version}/identification/same-device`.  ## Request Payload  - `action` (string): Specifies the action to be performed. - `claims` (array of strings): Contains the claims for identification. - `payload` (string): Specifies the payload for identification.       ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"token\": \"\",         \"link\": \"\",         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"version\": \"\"     } }   ```  ## Example  ``` json {     \"action\": \"login\" | \"signup\" | \"link\",     \"claims\": [\"claim1\", \"claim2\"],     \"payload\": \"payloadData\" }   ```
      * @summary identification:same
      * @param {IdentificationApiSameDeviceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -350,7 +341,7 @@ export class IdentificationApiGenerated extends BaseAPI {
     }
 
     /**
-     * # Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
+     * Identification Wildcard  This endpoint allows you to make an HTTP POST request to identify a user without any nin entry.  Wildcards are used with QR codes to create an authentication flow that relies on an unkown user authenticating through a scan only. This scope does not need a nin identifier. Thus the reason it is a wildcard.  ## Request  - Method: POST - URL: `https://{base_url}/api/{version}/identification/wildcard` - Payload Type: Raw       ### Request Body  | Key | Type | Description | | --- | --- | --- | | action | text | Action to be performed | | claims | array | Array of claims | | seeds | number | Number of requests ids to be generated | | payload | text | Payload data |  ## Response  - Status: 201 - Content-Type: application/json       ### Response Body  ``` json {     \"status\": \"\",     \"reason\": \"\",     \"data\": {         \"request\": {             \"id\": \"\",             \"consumer\": \"\",             \"app\": \"\",             \"mode\": \"\",             \"action\": \"\",             \"payload\": \"\",             \"iat\": 0,             \"exp\": 0,             \"user\": \"\",             \"ip\": \"\",             \"useragent\": \"\",             \"name\": \"\",             \"acquireClaims\": [\"\"],             \"signature\": \"\"         },         \"seeds\": [\"\"]     },     \"version\": \"\" }   ```
      * @summary identification:wildcard
      * @param {IdentificationApiWildcardRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

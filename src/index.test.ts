@@ -3,10 +3,10 @@ import { Pasby } from "./index";
 describe("pasby", () => {
     it("initialize client", async () => {
         const pasby = new Pasby({
-            apikeyAuth: "",
-            appSecretKey: "",
-            basePath: 'https://l.pasby.africa',
-            version: 'v1',
+            apikeyAuth: "bk-test_",
+            appSecretKey: "snb_",
+            basePath: 'https://s.pasby.africa',
+            version: 'v2',
         });
     });
 });

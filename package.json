@@ -1,8 +1,8 @@
 {
   "name": "@finsel-dgi/pasby",
-  "version": "0.0.1",
-  "description": "Finsel DGI team has curated a typescript sdk to help you and your development team communicate with the pasby™ rest apis. Head over to console.pasby.africa to get your api credentials.",
-  "author": "Finsel DGI",
+  "version": "0.0.3",
+  "description": "pasby™ API wrapper",
+  "author": "Finsel DGI Limited",
   "engines": {
     "node": ">=10"
   },
@@ -13,13 +13,12 @@
   },
   "homepage": "https://github.com/Finsel-DGI/pasby-typescript-sdk/tree/HEAD/#readme",
   "keywords": [
-    "axios",
-    "typescript",
     "pasby",
+    "finsel dgi",
     "pasby sdk",
-    "pasby-typescript-sdk"
+    "pasby-node-sdk"
   ],
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "./dist/**/*"
   ],

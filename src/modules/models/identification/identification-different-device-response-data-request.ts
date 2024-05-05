@@ -1,4 +1,4 @@
-import { actions } from "../../shared";
+import { FlowActionType } from "../../shared";
 
 /**
  * 
@@ -32,10 +32,10 @@ export interface IdentificationDifferentDeviceResponseDataRequest {
     'mode'?: string;
     /**
      * 
-     * @type {string}
+     * @type {FlowActionType}
      * @memberof IdentificationDifferentDeviceResponseDataRequest
      */
-    'action'?: actions;
+    'action': FlowActionType;
     /**
      * 
      * @type {string}
@@ -55,7 +55,7 @@ export interface IdentificationDifferentDeviceResponseDataRequest {
      */
     'exp'?: number;
     /**
-     * 
+     * African national on pasby
      * @type {string}
      * @memberof IdentificationDifferentDeviceResponseDataRequest
      */

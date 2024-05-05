@@ -1,7 +1,14 @@
-export type actions = 'login' | 'signup' | 'confirm' | 'link' | 'sign';
-export type versions = 'v1' | 'v2';
+export type versions = 'v2';
 export type baseURLs = 'https://l.pasby.africa' | 'https://s.pasby.africa';
 export type claims = keyof typeof Claims;
+
+export declare enum FlowActionType {
+  login = "login",
+  signup = "signup",
+  confirm = "confirm",
+  link = "link",
+  sign = "sign"
+}
 
 const Claims = strEnum([
   'bio.birthplace',
@@ -39,10 +46,14 @@ const Claims = strEnum([
   'financial.bvnIAT',
 ]);
 
-
 function strEnum<T extends string>(o: Array<T>): { [K in T]: K } {
   return o.reduce((res, key) => {
     res[key] = key;
     return res;
   }, Object.create(null));
+}
+
+/* eslint-disable */
+export function parseInterface(data: any) {
+  return JSON.parse(JSON.stringify(data));
 }

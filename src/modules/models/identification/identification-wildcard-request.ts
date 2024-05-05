@@ -1,4 +1,4 @@
-import { actions, claims } from "../../shared";
+import {claims } from "../../..";
 
 /**
  * 
@@ -8,10 +8,10 @@ import { actions, claims } from "../../shared";
 export interface IdentificationWildcardRequest {
     /**
      * 'login' | 'signup' | 'link'
-     * @type {actions}
+     * @type {string}
      * @memberof IdentificationWildcardRequest
      */
-    'action': actions;
+    'action': 'login' | 'signup' | 'link';
     /**
      * 
      * @type {Array<string>}

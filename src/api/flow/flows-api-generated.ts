@@ -54,6 +54,7 @@ export const FlowsApiAxiosParamCreator = function (configuration: Configuration)
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
             // authentication app secret key required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
+            
             if (sub !== undefined) {
                 localVarQueryParameter['sub'] = sub;
             }
@@ -103,10 +104,9 @@ export const FlowsApiAxiosParamCreator = function (configuration: Configuration)
 
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
 
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
-    
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
 
@@ -153,9 +153,8 @@ export const FlowsApiAxiosParamCreator = function (configuration: Configuration)
 
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
-
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
@@ -204,10 +203,8 @@ export const FlowsApiAxiosParamCreator = function (configuration: Configuration)
 
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
-
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
-
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
@@ -412,7 +409,7 @@ export class FlowsApiGenerated extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FlowsApiGenerated
      */
-    public authorize(requestParameters: FlowsApiAuthorizeRequest, options?: AxiosRequestConfig) {
+    private authorize(requestParameters: FlowsApiAuthorizeRequest, options?: AxiosRequestConfig) {
         return FlowsApiFp(this.configuration).authorize(requestParameters, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -436,7 +433,7 @@ export class FlowsApiGenerated extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FlowsApiGenerated
      */
-    public longPolling(requestParameters: FlowsApiLongPollingRequest, options?: AxiosRequestConfig) {
+    private longPolling(requestParameters: FlowsApiLongPollingRequest, options?: AxiosRequestConfig) {
         return FlowsApiFp(this.configuration).longPolling(requestParameters, options).then((request) => request(this.axios, this.basePath));
     }
 

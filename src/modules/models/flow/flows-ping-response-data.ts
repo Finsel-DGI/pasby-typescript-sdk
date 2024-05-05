@@ -12,5 +12,11 @@ export interface FlowsPingResponseData {
      * @memberof FlowsPingResponseData
      */
     'request': FlowsPingResponseDataRequest;
+    /**
+     * Only applies to ActionType.confirm. Which is a signature mode
+     * @type {string | undefined}
+     * @memberof FlowsPingResponseData
+     */
+    'username'?: string 
 }
 

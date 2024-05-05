@@ -1,4 +1,4 @@
-import { actions } from "../../shared";
+import { FlowActionType } from "../../shared";
 
 /**
  * 
@@ -32,10 +32,10 @@ export interface SigningResponseDataRequest {
     'mode': string;
     /**
      * Action stipulated for this flow, during creation
-     * @type {string}
+     * @type {FlowActionType}
      * @memberof SigningResponseDataRequest
      */
-    'action': actions;
+    'action': FlowActionType;
     /**
      * 
      * @type {string}

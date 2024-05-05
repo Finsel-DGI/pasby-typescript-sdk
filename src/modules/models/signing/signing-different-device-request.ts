@@ -1,6 +1,3 @@
-
-
-import { actions } from '../../shared';
 import { SigningRequestWebhook } from './signing-request-webhook';
 
 /**
@@ -21,13 +18,13 @@ export interface SigningDifferentDeviceRequest {
      * @type {string}
      * @memberof SigningDifferentDeviceRequest
      */
-    'action': actions;
+    'action': 'confirm' | 'sign';
     /**
-     *  An object containing webhook details
+     * An object containing webhook details. ( [optional] if action is 'confirm' )
      * @type {SigningRequestWebhook}
      * @memberof SigningDifferentDeviceRequest
      */
-    'webhook': SigningRequestWebhook;
+    'webhook'?: SigningRequestWebhook;
     /**
      * Your text payload for the signing action.
      * example: Confirm your purchase of access to xyz workspace access

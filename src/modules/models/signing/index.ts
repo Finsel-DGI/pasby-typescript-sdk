@@ -6,3 +6,6 @@ export * from './signing-response-data-request';
 export * from './signing-same-device-request';
 export * from './signing-same-device-response';
 export * from './signing-same-device-response-data';
+export * from './signing-wildcard-request';
+export * from './signing-wildcard-response';
+export * from './signing-wildcard-response-data';
