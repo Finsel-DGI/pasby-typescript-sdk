@@ -168,24 +168,19 @@ async function wrapAxiosRequest<R>(makeRequest: () => Promise<R>): Promise<R> {
         return await makeRequest();
     } catch (e) {
         if (e instanceof AxiosError && e.isAxiosError) {
-            console.error(`Core error: ${JSON.stringify(e.response?.data)}`);
             try {
                 const responseBody =
                     e.response?.data instanceof ReadableStream
                     ? await readableStreamToString(e.response.data)
                         : e.response?.data
-                console.error(`First level error: ${JSON.stringify(responseBody)}`);
-
                 throw new PasbyError(e, responseBody.reason? responseBody : parseIfJson(responseBody))
             } catch (innerError) {
                 if (innerError instanceof ReferenceError) {
-                    console.error(`Second level error: ${innerError}`);
                     // Got: "ReferenceError: ReadableStream is not defined"
                     // This means we are in a Node environment so just throw the original error
                     throw new PasbyError(e, e.response?.data)
                 }
                 if (innerError instanceof PasbyError) {
-                    console.error(`Third level error: ${innerError}`);
                     // Got "PasbyError" from the above try block
                     throw innerError;
                 }
