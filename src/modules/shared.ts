@@ -31,6 +31,7 @@ const Claims = strEnum([
   'naming.given',
   'naming.title',
   'naming.name',
+  'naming.middle',
   'naming.titlePrefix',
   'naming.titleSuffix',
   'naming.nickname',

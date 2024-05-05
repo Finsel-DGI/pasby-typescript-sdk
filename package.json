@@ -1,6 +1,6 @@
 {
   "name": "@finsel-dgi/pasby",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "pasby™ API wrapper",
   "author": "Finsel DGI Limited",
   "engines": {
