@@ -45,8 +45,8 @@ export const DocsApiAxiosParamCreator = function (configuration: Configuration) 
 
             // authentication apikeyAuth required
             await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-api-key", keyParamName: "apikeyAuth", configuration })
-            // jwt token required
-            await setJwtToObject(localVarHeaderParameter, configuration);
+            // authentication app secret key required
+            await setApiKeyToObject({ object: localVarHeaderParameter, key: "x-access-secret", keyParamName: "appSecretKey", configuration })
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
