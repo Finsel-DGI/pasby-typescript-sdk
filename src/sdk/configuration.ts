@@ -97,7 +97,7 @@ export class Configuration {
         this.basePath = param.basePath ?? 'https://l.pasby.africa';
         this.versioning = param.version ?? 'v2';
         this.baseOptions = param.baseOptions ?? {};
-        this.userAgent = param.userAgent === undefined ? "Finsel-DGI/pasby-sdk/0.0.1/typescript" : param.userAgent;
+        this.userAgent = param.userAgent === undefined ? "Finsel-DGI/pasby-sdk/typescript" : param.userAgent;
         this.formDataCtor = param.formDataCtor;
     }
 
