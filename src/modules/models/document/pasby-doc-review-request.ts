@@ -1,5 +1,5 @@
 import { PasbyDocSignRequestFile } from './pasby-doc-sign-request-file';
-import { PasbyDocSignRequestSignee } from './pasby-doc-sign-request-signees';
+import { PasbyDocSignRequestSignee } from './pasby-doc-review-request-signees';
 import { PasbyDocSignRequestWebhook } from './pasby-doc-sign-request-webhook';
 
 /**
